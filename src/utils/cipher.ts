@@ -1,8 +1,8 @@
 export const BINARY_VALUES: { binary: string; decimal: number }[] = [
-  { binary: '1001', decimal: 9 },
-  { binary: '0101', decimal: 5 },
+  { binary: '1101', decimal: 13 },
+  { binary: '0001', decimal: 1 },
+  { binary: '1111', decimal: 15 },
   { binary: '0011', decimal: 3 },
-  { binary: '1000', decimal: 8 },
 ]
 
 export const NUMBER_TO_CHAR: Record<number, string> = {
@@ -15,12 +15,17 @@ export const NUMBER_TO_CHAR: Record<number, string> = {
 
 export function solvePuzzle1(): string {
   const sorted = [...BINARY_VALUES].sort((a, b) => a.decimal - b.decimal)
-  const twoSmallest = sorted[0].decimal + sorted[1].decimal   // 3+5=8
-  const twoLargest  = sorted[2].decimal + sorted[3].decimal   // 9+8=17
-  return (NUMBER_TO_CHAR[twoSmallest] ?? '') + (NUMBER_TO_CHAR[twoLargest] ?? '')
+  // sorted: 1, 3, 13, 15
+  const code1 = sorted[0].decimal + sorted[1].decimal   // 1+3 = 4  → E
+  const code2 = sorted[2].decimal + sorted[3].decimal   // 13+15 = 28 → 2
+  const code3 = sorted.reduce((s, v) => s + v.decimal, 0) // 1+3+13+15 = 32 → 6
+  const code4 = code3 / code1                           // 32/4 = 8  → I
+  return [code1, code2, code3, code4]
+    .map((n) => NUMBER_TO_CHAR[n] ?? '')
+    .join('')
 }
 
-export const PUZZLE1_ANSWER = solvePuzzle1() // 'IR'
+export const PUZZLE1_ANSWER = solvePuzzle1() // 'E26I'
 
 export function caesarDecrypt(text: string, shift: number): string {
   return text

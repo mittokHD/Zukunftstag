@@ -6,6 +6,16 @@ interface Puzzle1PageProps {
   onSolve: () => void
 }
 
+const STEPS = [
+  'Wandle die Binärzahlen in Dezimalzahlen um.',
+  'Sortiere die vier Dezimalzahlen von klein nach groß.',
+  '1. Code-Wert = Summe der zwei kleinsten Zahlen.',
+  '2. Code-Wert = Summe der zwei größten Zahlen.',
+  '3. Code-Wert = Summe aller vier Zahlen.',
+  '4. Code-Wert = (3. Code-Wert) ÷ (1. Code-Wert) — muss ohne Rest aufgehen!',
+  'Wandle alle 4 Code-Werte mit der Codetabelle in Buchstaben/Ziffern um.',
+]
+
 export default function Puzzle1Page({ onSolve }: Puzzle1PageProps) {
   const [showHint, setShowHint] = useState(false)
   const [showMapping, setShowMapping] = useState(false)
@@ -14,39 +24,50 @@ export default function Puzzle1Page({ onSolve }: Puzzle1PageProps) {
     <main className="page">
       <div className="card">
         <div className="page-subtitle">RÄTSEL 1 / 2</div>
-        <h2 className="page-title">Binärzahlen entschlüsseln</h2>
+        <h2 className="page-title">Der Hacker und die Binärzahlen</h2>
 
         <div className="story-box">
           <p>
-            Der Hacker hat auf einer Notiz folgende Binärzahlen hinterlassen.
-            Sie sind Teil des USB-Passworts. Deine Aufgabe: Finde die versteckte
-            Buchstaben-Kombination.
+            Der Hacker hat 4 Binärzahlen hinterlassen. Daraus entsteht ein geheimer{' '}
+            <strong>4-stelliger Code</strong> aus Buchstaben und Zahlen.
           </p>
         </div>
 
-        <div className="section-title">Gefundene Binärzahlen</div>
+        <div className="section-title">Binärzahlen (Computersprache)</div>
         <div className="binary-grid">
           {BINARY_VALUES.map((item) => (
             <div className="binary-item" key={item.binary}>
               <span className="binary-value">{item.binary}</span>
-              <span className="decimal-value">= {item.decimal}</span>
             </div>
           ))}
         </div>
 
         <div className="divider" />
 
+        <div className="section-title">Deine Schritte</div>
+        <ol style={{ paddingLeft: '1.25rem', margin: '0 0 1.25rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          {STEPS.map((step, i) => (
+            <li key={i} style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: '1.5' }}>
+              {step}
+            </li>
+          ))}
+        </ol>
+
+        <div className="divider" />
+
         <button className="hint-toggle" onClick={() => setShowHint(!showHint)}>
-          {showHint ? '▼' : '►'} HINWEIS ANZEIGEN
+          {showHint ? '▼' : '►'} LÖSUNGSHINWEISE ANZEIGEN
         </button>
 
         {showHint && (
-          <div className="hint-box">
+          <div className="hint-box" style={{ marginTop: '0.75rem' }}>
             <ul>
-              <li>Zähle die zwei <strong style={{ color: 'var(--accent-orange)' }}>kleinsten</strong> Zahlen zusammen</li>
-              <li>Zähle die zwei <strong style={{ color: 'var(--accent-orange)' }}>größten</strong> Zahlen zusammen</li>
-              <li>Verwende die Buchstaben-Tabelle, um beide Summen in Buchstaben umzuwandeln</li>
-              <li>Kombiniere die Buchstaben → das ist dein Passwort</li>
+              <li>Binär → Dezimal: 1101=13 · 0001=1 · 1111=15 · 0011=3</li>
+              <li>Sortiert: 1 · 3 · 13 · 15</li>
+              <li>1. Code-Wert = 1 + 3 = <strong style={{ color: 'var(--accent-orange)' }}>4</strong></li>
+              <li>2. Code-Wert = 13 + 15 = <strong style={{ color: 'var(--accent-orange)' }}>28</strong></li>
+              <li>3. Code-Wert = 1 + 3 + 13 + 15 = <strong style={{ color: 'var(--accent-orange)' }}>32</strong></li>
+              <li>4. Code-Wert = 32 ÷ 4 = <strong style={{ color: 'var(--accent-orange)' }}>8</strong></li>
             </ul>
           </div>
         )}
@@ -54,7 +75,7 @@ export default function Puzzle1Page({ onSolve }: Puzzle1PageProps) {
         <div className="divider" />
 
         <button className="hint-toggle" onClick={() => setShowMapping(!showMapping)} style={{ color: 'var(--accent-cyan)' }}>
-          {showMapping ? '▼' : '►'} BUCHSTABEN-TABELLE {showMapping ? 'AUSBLENDEN' : 'ANZEIGEN'}
+          {showMapping ? '▼' : '►'} CODETABELLE {showMapping ? 'AUSBLENDEN' : 'ANZEIGEN'}
         </button>
 
         {showMapping && (
@@ -63,15 +84,15 @@ export default function Puzzle1Page({ onSolve }: Puzzle1PageProps) {
               <thead>
                 <tr>
                   <th>Zahl</th>
-                  <th>Buchstabe</th>
+                  <th>Zeichen</th>
                   <th>Zahl</th>
-                  <th>Buchstabe</th>
+                  <th>Zeichen</th>
                 </tr>
               </thead>
               <tbody>
                 {Object.entries(NUMBER_TO_CHAR)
                   .filter((_, i) => i % 2 === 0)
-                  .map(([num], i) => {
+                  .map(([num]) => {
                     const n1 = parseInt(num)
                     const n2 = n1 + 1
                     return (
@@ -93,8 +114,8 @@ export default function Puzzle1Page({ onSolve }: Puzzle1PageProps) {
         <PuzzleInput
           answer={PUZZLE1_ANSWER}
           onSuccess={onSolve}
-          placeholder="Buchstaben-Kombination..."
-          label="PASSWORT-EINGABE"
+          placeholder="4-stelligen Code eingeben..."
+          label="GEHEIM-CODE (4 Stellen)"
         />
       </div>
     </main>
