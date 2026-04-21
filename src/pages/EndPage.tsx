@@ -41,7 +41,7 @@ export default function EndPage({ elapsed, onRestart }: EndPageProps) {
             <span className="stat-label">Benötigte Zeit</span>
           </div>
           <div className="stat-item">
-            <span className="stat-value" style={{ color: 'var(--accent-cyan)' }}>E26I+HUND</span>
+            <span className="stat-value" style={{ color: 'var(--accent-cyan)' }}>E26IHUND</span>
             <span className="stat-label">Passwörter</span>
           </div>
         </div>
