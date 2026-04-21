@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PuzzleInput from '../components/PuzzleInput'
 import { BINARY_VALUES, NUMBER_TO_CHAR, PUZZLE1_ANSWER } from '../utils/cipher'
 
@@ -9,6 +9,17 @@ interface Puzzle1PageProps {
 export default function Puzzle1Page({ onSolve }: Puzzle1PageProps) {
   const [showHint, setShowHint] = useState(false)
   const [showMapping, setShowMapping] = useState(false)
+  const [showValues, setShowValues] = useState(false)
+
+  useEffect(() => {
+    function handleKey(e: KeyboardEvent) {
+      if (e.key === 'z' || e.key === 'Z') {
+        setShowValues((prev) => !prev)
+      }
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [])
 
   return (
     <main className="page">
@@ -24,12 +35,21 @@ export default function Puzzle1Page({ onSolve }: Puzzle1PageProps) {
           </p>
         </div>
 
-        <div className="section-title">Gefundene Binärzahlen</div>
+        <div className="section-title">
+          Gefundene Binärzahlen
+          <span style={{ marginLeft: '1rem', fontSize: '0.7rem', color: 'var(--text-muted)', fontWeight: 'normal' }}>
+            [Taste <strong style={{ color: showValues ? 'var(--accent-orange)' : 'var(--text-secondary)' }}>Z</strong> zum {showValues ? 'Ausblenden' : 'Einblenden'} der Werte]
+          </span>
+        </div>
         <div className="binary-grid">
           {BINARY_VALUES.map((item) => (
             <div className="binary-item" key={item.binary}>
               <span className="binary-value">{item.binary}</span>
-              <span className="decimal-value">= {item.decimal}</span>
+              {showValues && (
+                <span className="decimal-value" style={{ color: 'var(--accent-orange)', fontWeight: 'bold' }}>
+                  = {item.decimal}
+                </span>
+              )}
             </div>
           ))}
         </div>
