@@ -24,6 +24,12 @@ export default function Puzzle2Page({ onSolve }: Puzzle2PageProps) {
             gesichert – jeder Buchstabe wurde im Alphabet um eine bestimmte Anzahl
             von Schritten verschoben.
           </p>
+          <p style={{ marginTop: '0.75rem', color: 'var(--accent-orange)' }}>
+            <strong>Tipp:</strong> Die Lieblingszahl des Hackers ist{' '}
+            <strong>{PUZZLE2_SHIFT}</strong>. Um die Verschiebung von{' '}
+            <strong>{PUZZLE2_SHIFT}</strong> im Alphabet vorzunehmen, zähle jeden
+            Buchstaben um {PUZZLE2_SHIFT} Stellen zurück.
+          </p>
         </div>
 
         <div className="section-title">Verschlüsseltes Codewort</div>

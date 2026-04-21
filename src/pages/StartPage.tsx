@@ -20,12 +20,15 @@ export default function StartPage({ onStart }: StartPageProps) {
             <strong>ALARM – DATENLECK ERKANNT.</strong>
           </p>
           <p>
-            Ein Hacker hat das System infiltriert, alle kritischen Daten gelöscht
-            und auf einem <strong>verschlüsselten USB-Stick</strong> gesichert.
+            Wir sind bei <strong style={{ color: 'var(--accent-cyan)' }}>IAV</strong> und
+            haben die Aufgabe bekommen, einen sichergestellten{' '}
+            <strong>verschlüsselten USB-Stick</strong> zu entschlüsseln.
           </p>
           <p>
-            Der Hacker wurde von der Polizei gefasst – doch die Daten sind weiterhin
-            gesperrt. Er hat nur <strong>kryptische Eselsbrücken</strong> hinterlassen.
+            Ein Hacker hat das System infiltriert, alle kritischen Daten gestohlen
+            und auf diesem USB-Stick gesichert. Der Hacker wurde von der Polizei gefasst –
+            doch die Daten sind weiterhin gesperrt. Er hat nur{' '}
+            <strong>kryptische Eselsbrücken</strong> hinterlassen.
           </p>
           <p>
             <strong>Deine Mission:</strong> Entschlüssele die Hinweise, rekonstruiere
